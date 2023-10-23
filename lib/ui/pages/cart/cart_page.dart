@@ -16,7 +16,7 @@ class CartPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     Param? param = ref.watch(paramProvider);
     CartDTOListModel? cartDTOListModel = ref.watch(cartDTOListProvider);
-    if (cartDTOListModel == null ){
+    if (cartDTOListModel == null) {
       return Center(child: CircularProgressIndicator());
     } else {
       return Stack(
@@ -59,7 +59,7 @@ class CartPage extends ConsumerWidget {
                     ),
                     SizedBox(height: mlargeGap),
                     ListView.builder(
-                        shrinkWrap: true,  // 이 줄을 추가
+                        shrinkWrap: true, // 이 줄을 추가
                         primary: false,
                         itemCount: 3,
                         // itemCount: cartDTOListModel?.cartDTO.cartProducts.length ?? 0,
@@ -74,16 +74,22 @@ class CartPage extends ConsumerWidget {
                                     checkedColor: Colors.purple,
                                     size: 18,
                                     uncheckedWidget: Image.asset(
-                                    'assets/unchecked12.jpg',
+                                      'assets/images/unchecked12.jpg',
                                     ),
                                   ),
                                   Text(
-                                    cartDTOListModel?.cartDTO.cartProducts[index].productSeller ?? "",
+                                    cartDTOListModel
+                                            ?.cartDTO
+                                            .cartProducts[index]
+                                            .productSeller ??
+                                        "",
                                     style: h5(),
                                   ),
                                   SizedBox(width: mediumGap),
                                   Text(
-                                    cartDTOListModel?.cartDTO.cartProducts[index].productTitle ?? "",
+                                    cartDTOListModel?.cartDTO
+                                            .cartProducts[index].productTitle ??
+                                        "",
                                     style: h5(),
                                   ),
                                 ],
@@ -91,7 +97,7 @@ class CartPage extends ConsumerWidget {
                               Row(
                                 children: [
                                   Image.asset(
-                                    'assets/product01.jpg',
+                                    'assets${cartDTOListModel?.cartDTO.cartProducts[index].image}',
                                     width: 60,
                                     height: 90,
                                   ),
@@ -103,9 +109,14 @@ class CartPage extends ConsumerWidget {
                                       ),
                                       Row(
                                         children: [
-                                          Text("${cartDTOListModel?.cartDTO.cartProducts[index].discountedPrice}원" ?? "에러",
+                                          Text(
+                                            "${cartDTOListModel?.cartDTO.cartProducts[index].discountedPrice}원" ??
+                                                "에러",
                                           ),
-                                          Text("${cartDTOListModel?.cartDTO.cartProducts[index].beforeDiscount}원" ?? "에러", style: disabledText()),
+                                          Text(
+                                              "${cartDTOListModel?.cartDTO.cartProducts[index].beforeDiscount}원" ??
+                                                  "에러",
+                                              style: disabledText()),
                                         ],
                                       ),
                                       Row(
@@ -115,25 +126,51 @@ class CartPage extends ConsumerWidget {
                                             height: 15,
                                             child: GestureDetector(
                                                 onTap: () {
-                                                  ref.watch(cartDTOListProvider.notifier).plusQuantity(index);
-                                                  ref.read(cartDTOListProvider.notifier).calSumOriginPrice();
-                                                  ref.read(cartDTOListProvider.notifier).calSumDiscountPrice();
+                                                  ref
+                                                      .watch(cartDTOListProvider
+                                                          .notifier)
+                                                      .plusQuantity(index);
+                                                  ref
+                                                      .read(cartDTOListProvider
+                                                          .notifier)
+                                                      .calSumOriginPrice();
+                                                  ref
+                                                      .read(cartDTOListProvider
+                                                          .notifier)
+                                                      .calSumDiscountPrice();
                                                 },
-                                                child: Image.asset("assets/plus.png")),
+                                                child: Image.asset(
+                                                    "assets/icons/plus.png")),
                                           ),
-                                          SizedBox(width: 10,),
-                                          Text("${cartDTOListModel?.cartDTO.cartProducts[index].quentity}" ?? "에러"),
-                                          SizedBox(width: 10,),
+                                          SizedBox(
+                                            width: 10,
+                                          ),
+                                          Text(
+                                              "${cartDTOListModel?.cartDTO.cartProducts[index].quentity}" ??
+                                                  "에러"),
+                                          SizedBox(
+                                            width: 10,
+                                          ),
                                           Container(
                                             width: 15,
                                             height: 15,
                                             child: GestureDetector(
                                                 onTap: () {
-                                                  ref.watch(cartDTOListProvider.notifier).minusQuantity(index);
-                                                  ref.read(cartDTOListProvider.notifier).calSumOriginPrice();
-                                                  ref.read(cartDTOListProvider.notifier).calSumDiscountPrice();
+                                                  ref
+                                                      .watch(cartDTOListProvider
+                                                          .notifier)
+                                                      .minusQuantity(index);
+                                                  ref
+                                                      .read(cartDTOListProvider
+                                                          .notifier)
+                                                      .calSumOriginPrice();
+                                                  ref
+                                                      .read(cartDTOListProvider
+                                                          .notifier)
+                                                      .calSumDiscountPrice();
                                                 },
-                                                child: Image.asset("assets/minus.png")),
+                                                child: Image.asset(
+                                                    "assets/icons/minus.png")),
                                           ),
                                         ],
                                       ),
@@ -150,14 +187,16 @@ class CartPage extends ConsumerWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text("상품금액"),
-                            Text("${cartDTOListModel!.cartDTO.totalBeforePrice}원"),
+                            Text(
+                                "${cartDTOListModel!.cartDTO.totalBeforePrice}원"),
                           ],
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text("상품할인금액"),
-                            Text("${cartDTOListModel!.cartDTO.totalDiscountPrice}원"),
+                            Text(
+                                "${cartDTOListModel!.cartDTO.totalDiscountPrice}원"),
                           ],
                         ),
                         Row(
@@ -171,7 +210,8 @@ class CartPage extends ConsumerWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text("결제예정금액"),
-                            Text("${cartDTOListModel!.cartDTO.totalBeforePrice-cartDTOListModel.cartDTO.totalDiscountPrice}원"),
+                            Text(
+                                "${cartDTOListModel!.cartDTO.totalBeforePrice - cartDTOListModel.cartDTO.totalDiscountPrice}원"),
                           ],
                         ),
                       ],
@@ -191,15 +231,13 @@ class CartPage extends ConsumerWidget {
                   onPressed: () {
                     print("주문하기 클릭됨");
                   },
-                  style: ElevatedButton.styleFrom(fixedSize:Size(0, 50),primary: primaryColor),
+                  style: ElevatedButton.styleFrom(
+                      fixedSize: Size(0, 50), primary: primaryColor),
                   child: Text("주문하기")),
             ),
           )
         ],
       );
-
-
     }
-
   }
 }

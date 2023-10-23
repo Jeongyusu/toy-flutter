@@ -5,6 +5,7 @@ import 'package:flutter_blog/ui/pages/cart/cart_page.dart';
 import 'package:flutter_blog/ui/pages/main/main_page.dart';
 import 'package:flutter_blog/ui/pages/post/list_page/post_list_page.dart';
 import 'package:flutter_blog/ui/pages/post/write_page/post_write_page.dart';
+import 'package:flutter_blog/ui/screens/main_screen.dart';
 
 class Move {
   static String loginPage = "/login";
@@ -22,7 +23,7 @@ Map<String, Widget Function(BuildContext)> getRouters() {
     Move.joinPage: (context) => const JoinPage(),
     Move.postListPage: (context) => PostListPage(),
     Move.postWritePage: (context) => const PostWritePage(),
-    // Move.mainPage: (context) => const MainPage(),
+    Move.mainPage: (context) => const MainScreen(),
     Move.cartPage: (context) => CartPage(),
   };
 }
